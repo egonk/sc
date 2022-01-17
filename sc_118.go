@@ -3,6 +3,10 @@
 
 package sc
 
+// M panics if err is not nil. v is returned if err is nil.
+//  f := M(os.Create("example"))
+//  defer C(f)
+//  // write to f
 func M[T any](v T, err error) T {
 	if err != nil {
 		panic(err)

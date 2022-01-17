@@ -79,3 +79,9 @@ func TestT(t *testing.T) {
 	defer expectRecover(t, errors.New("err: 123"))
 	T("%v: %v", "err", "123")
 }
+
+func TestW(t *testing.T) {
+	defer expectRecover(t, errors.New("err: 123: 456"))
+	defer W("%v: %v", "err", "123")
+	T("456")
+}
