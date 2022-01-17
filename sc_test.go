@@ -24,7 +24,7 @@ type closer struct {
 func (c closer) Close() error { return c.err }
 
 func captureOutput(f **os.File, fn func()) (output []byte) {
-	tmp, err := os.CreateTemp("", "")
+	tmp, err := ioutil.TempFile("", "")
 	E(err)
 	defer func() {
 		output, err = ioutil.ReadFile(tmp.Name())
