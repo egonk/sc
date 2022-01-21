@@ -31,6 +31,7 @@ import (
 	"fmt"
 	"io"
 	"os"
+	"os/exec"
 )
 
 // C calls c.Close() and panics on error.
@@ -77,4 +78,23 @@ func W(format string, a ...interface{}) {
 	if r := recover(); r != nil {
 		panic(fmt.Errorf(format+": %v", append(a, r)...))
 	}
+}
+
+// X calls E(XS(name, arg...).Run()).
+//  X("git", "status")
+func X(name string, arg ...string) {
+	E(XS(name, arg...).Run())
+}
+
+// XS calls exec.Command(name, arg...) and sets up os.Stdin, os.Stdout and
+// os.Stderr in the returned exec.Cmd.
+//  c := XS("go", "build", "-v", ".")
+//  c.Env = append(os.Environ(), "GOOS=linux", "GOARCH=amd64")
+//  E(c.Run())
+func XS(name string, arg ...string) *exec.Cmd {
+	c := exec.Command(name, arg...)
+	c.Stdin = os.Stdin
+	c.Stdout = os.Stdout
+	c.Stderr = os.Stderr
+	return c
 }
