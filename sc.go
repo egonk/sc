@@ -80,10 +80,12 @@ func W(format string, a ...interface{}) {
 	}
 }
 
-// X calls E(XS(name, arg...).Run()).
+// X calls XS(name, arg...).Run() and panics on error.
 //  X("git", "status")
 func X(name string, arg ...string) {
-	E(XS(name, arg...).Run())
+	if err := XS(name, arg...).Run(); err != nil {
+		panic(err)
+	}
 }
 
 // XS calls exec.Command(name, arg...) and sets up os.Stdin, os.Stdout and
