@@ -83,21 +83,21 @@ func W(format string, a ...interface{}) {
 	}
 }
 
-// X calls XS(name, arg...).Run() and panics on error. X is a shorthand for
+// X calls XC(name, arg...).Run() and panics on error. X is a shorthand for
 // eXecute.
 //  X("git", "status")
 func X(name string, arg ...string) {
-	if err := XS(name, arg...).Run(); err != nil {
+	if err := XC(name, arg...).Run(); err != nil {
 		panic(err)
 	}
 }
 
-// XS calls exec.Command(name, arg...) and sets up os.Stdin, os.Stdout and
-// os.Stderr in the returned exec.Cmd. XS is a shorthand for eXecute with Stdio.
-//  c := XS("go", "build", "-v", ".")
+// XC calls exec.Command(name, arg...) and sets up os.Stdin, os.Stdout and
+// os.Stderr in the returned exec.Cmd. XC is a shorthand for eXecute Command.
+//  c := XC("go", "build", "-v", ".")
 //  c.Env = append(os.Environ(), "GOOS=linux", "GOARCH=amd64")
 //  E(c.Run())
-func XS(name string, arg ...string) *exec.Cmd {
+func XC(name string, arg ...string) *exec.Cmd {
 	c := exec.Command(name, arg...)
 	c.Stdin = os.Stdin
 	c.Stdout = os.Stdout
