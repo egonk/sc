@@ -3,7 +3,8 @@
 
 package sc
 
-// M panics if err is not nil. v is returned if err is nil.
+// M panics if err is not nil. v is returned if err is nil. M is a shorthand for
+// Must.
 //  f := M(os.Create("example"))
 //  defer C(f)
 //  // write to f

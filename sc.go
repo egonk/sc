@@ -34,7 +34,7 @@ import (
 	"os/exec"
 )
 
-// C calls c.Close() and panics on error.
+// C calls c.Close() and panics on error. C is a shorthand for Close.
 //  f := M(os.Create("example"))
 //  defer C(f)
 //  // write to f
@@ -44,7 +44,7 @@ func C(c io.Closer) {
 	}
 }
 
-// E panics if err is not nil.
+// E panics if err is not nil. E is a shorthand for Error.
 //  E(os.Chdir("example"))
 func E(err error) {
 	if err != nil {
@@ -52,26 +52,28 @@ func E(err error) {
 	}
 }
 
-// P calls fmt.Printf(format, a...).
+// P calls fmt.Printf(format, a...). P is a shorthand for Printf.
 //  P("=== writing to: %v\n", fn)
 func P(format string, a ...interface{}) {
 	fmt.Printf(format, a...)
 }
 
-// PE calls fmt.Fprintf(os.Stderr, format, a...).
+// PE calls fmt.Fprintf(os.Stderr, format, a...). PE is a shorthand for Printf
+// to stdErr.
 //  PE("=== error writing to: %v: %v\n", fn, err)
 func PE(format string, a ...interface{}) {
 	fmt.Fprintf(os.Stderr, format, a...)
 }
 
-// T panics with fmt.Errorf(format, a...).
+// T panics with fmt.Errorf(format, a...). T is a shorthand for Throw inspired
+// by other programming languages.
 //  T("invalid argument: %v", arg)
 func T(format string, a ...interface{}) {
 	panic(fmt.Errorf(format, a...))
 }
 
 // W panics with fmt.Errorf(format+": %v", append(a, recover())...) if recover()
-// is not nil.
+// is not nil. W is a shorthand for Wrap.
 //  defer W("file: %v", fn) // panic: file: <fn>: invalid argument: <arg>
 //  T("invalid argument: %v", arg)
 func W(format string, a ...interface{}) {
@@ -80,7 +82,8 @@ func W(format string, a ...interface{}) {
 	}
 }
 
-// X calls XS(name, arg...).Run() and panics on error.
+// X calls XS(name, arg...).Run() and panics on error. X is a shorthand for
+// eXecute.
 //  X("git", "status")
 func X(name string, arg ...string) {
 	if err := XS(name, arg...).Run(); err != nil {
@@ -89,7 +92,7 @@ func X(name string, arg ...string) {
 }
 
 // XS calls exec.Command(name, arg...) and sets up os.Stdin, os.Stdout and
-// os.Stderr in the returned exec.Cmd.
+// os.Stderr in the returned exec.Cmd. XS is a shorthand for eXecute with Stdio.
 //  c := XS("go", "build", "-v", ".")
 //  c.Env = append(os.Environ(), "GOOS=linux", "GOARCH=amd64")
 //  E(c.Run())
