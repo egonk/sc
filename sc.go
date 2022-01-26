@@ -20,7 +20,7 @@
 //  	s := bufio.NewScanner(f)
 //  	for s.Scan() {
 //  		if re.Match(s.Bytes()) {
-//  			P("%s\n", s.Bytes())
+//  			M(fmt.Printf("%s\n", s.Bytes()))
 //  		}
 //  	}
 //  	E(s.Err())
@@ -52,14 +52,15 @@ func E(err error) {
 	}
 }
 
-// P calls fmt.Printf(format, a...). P is a shorthand for Printf.
+// P calls fmt.Printf(format, a...). Write errors are ignored. P is a shorthand
+// for Printf.
 //  P("=== writing to: %v\n", fn)
 func P(format string, a ...interface{}) {
 	fmt.Printf(format, a...)
 }
 
-// PE calls fmt.Fprintf(os.Stderr, format, a...). PE is a shorthand for Printf
-// to stdErr.
+// PE calls fmt.Fprintf(os.Stderr, format, a...). Write errors are ignored. PE
+// is a shorthand for Printf to stdErr.
 //  PE("=== error writing to: %v: %v\n", fn, err)
 func PE(format string, a ...interface{}) {
 	fmt.Fprintf(os.Stderr, format, a...)
