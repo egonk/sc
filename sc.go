@@ -1,29 +1,29 @@
 // sc is a convenience package to support writing short automation scripts that
 // simply panic on errors. It is similar to shell scripting with "set -e"
-// option.
+// option. sc is the short name variant of https://github.com/egonk/scr
 //  package main
 //
 //  import (
-//  	"bufio"
-//  	"os"
-//  	"regexp"
+//      "bufio"
+//      "os"
+//      "regexp"
 //
-//  	. "github.com/egonk/sc"
+//      . "github.com/egonk/sc"
 //  )
 //
 //  func main() {
-//  	// set -e
-//  	// grep "abc" example
-//  	re := regexp.MustCompile(`abc`)
-//  	f := M(os.Open("example"))
-//  	defer C(f)
-//  	s := bufio.NewScanner(f)
-//  	for s.Scan() {
-//  		if re.Match(s.Bytes()) {
-//  			M(fmt.Printf("%s\n", s.Bytes()))
-//  		}
-//  	}
-//  	E(s.Err())
+//      // set -e
+//      // grep "abc" example
+//      re := regexp.MustCompile(`abc`)
+//      f := M(os.Open("example"))
+//      defer C(f)
+//      s := bufio.NewScanner(f)
+//      for s.Scan() {
+//          if re.Match(s.Bytes()) {
+//              M(fmt.Printf("%s\n", s.Bytes()))
+//          }
+//      }
+//      E(s.Err())
 //  }
 package sc
 
